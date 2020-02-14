@@ -8,11 +8,15 @@ typedef vector <lli> vi;
 typedef vector <ii> vii;
 typedef vector <bool> vb;
 typedef vector <vii> vvi;
-typedef priority_queue <ii> pq;
+
+// min-heap
+typedef priority_queue <ii, vii, greater<ii>> pq;
 
 pq pqueue;
 vvi graph;
 vi distances;
+vi predecessor;
+vi way;
 
 int dijkstra() {
     ii start = make_pair(0, 1);
@@ -31,7 +35,7 @@ int dijkstra() {
 
             // so atualiza se o custo de eu chegar no novo vertice for menor
             if (distances[v] > w + start.first) {
-
+                predecessor[v] = start.second;
                 // atualiza a distancia caso ela seja menor que o que ja tinhamos
                 distances[v] = w + start.first;
 
@@ -55,6 +59,26 @@ void print_graph() {
     cout << endl;
 }
 
+void get_min_way() {
+    lli index = predecessor.size() - 1;
+    while (index != 1) {
+        way.insert(way.begin(), index);
+        index = predecessor[index]; 
+    }
+    way.insert(way.begin(), index);
+}
+
+void print_min_way() {
+    for (int i = 0; i < way.size(); ++i) {
+        if (i == 0) {
+            cout << way[i];
+        } else {
+            cout << " => "  << way[i];
+        } 
+    }
+    cout << endl;
+}
+
 
 int main() {
     lli vertex, edges;
@@ -63,6 +87,7 @@ int main() {
     cin >> vertex >> edges;
 
     distances.resize(vertex + 1, INT_MAX);
+    predecessor.resize(vertex + 1);
     graph.resize(vertex + 1);
 
     for (lli i = 0; i < edges; ++i) {
@@ -74,5 +99,9 @@ int main() {
     }
 
     cout << dijkstra() << endl;
+
+    get_min_way();
+    print_min_way();
+    
     return 0;
 }
