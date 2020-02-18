@@ -18,7 +18,7 @@ vi distances;
 vi predecessor;
 vi way;
 
-int dijkstra() {
+lli dijkstra() {
     ii start = make_pair(0, 1);
     distances[1] = 0;
     pqueue.push(start);  
@@ -49,14 +49,14 @@ int dijkstra() {
 }
 
 void print_graph() {
-    for (int i = 0; i < graph.size(); ++i) {
-        cout << i << " "; 
+    for (lli i = 0; i < graph.size(); ++i) {
+        printf("%lld ", i);
         for (auto edge: graph[i]) {
-            cout << "{" << edge.first << ", " << edge.second << "} -> ";
+            printf("{ %lld, %lld} -> ", edge.first, edge.second);
         }
-        cout << "null" <<  endl;
+        printf("null\n");
     }
-    cout << endl;
+    printf("\n");
 }
 
 void get_min_way() {
@@ -71,12 +71,12 @@ void get_min_way() {
 void print_min_way() {
     for (int i = 0; i < way.size(); ++i) {
         if (i == 0) {
-            cout << way[i];
+            printf("%lld", way[i]);
         } else {
-            cout << " => "  << way[i];
+            printf(" => %lld", way[i]);
         } 
     }
-    cout << endl;
+    printf("\n");
 }
 
 
@@ -98,7 +98,7 @@ int main() {
         graph[destiny].push_back(make_pair(cost, source));
     }
 
-    cout << dijkstra() << endl;
+    printf("%lld\n", dijkstra());
 
     get_min_way();
     print_min_way();
